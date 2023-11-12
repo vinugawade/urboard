@@ -1,0 +1,51 @@
+{
+  "name": "urboard",
+  "version": "1.0.0",
+  "description": "The Clipboard Manager",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "d": "electron-builder",
+    "dl": "electron-builder --linux"
+  },
+  "repository": "https://github.com/vinugawade/urboard.git",
+  "keywords": [
+    "clipboard",
+    "copy",
+    "paste",
+    "keynote"
+  ],
+  "license": "MIT",
+  "author": "Vinay Gawade <vinulike11@gmail.com>",
+  "devDependencies": {
+    "electron": "^27.0.4",
+    "electron-builder": "^24.6.4"
+  },
+  "dependencies": {
+    "jquery": "^3.7.1",
+    "lowdb": "^6.1.1",
+    "short-unique-id": "^5.0.3",
+    "sweetalert2": "^11.9.0"
+  },
+  "build": {
+    "appId": "com.vinugawade.urboard",
+    "linux": {
+      "target": [
+        "snap",
+        "deb"
+      ],
+      "files": [
+        "**/*",
+        "build/icon.*"
+      ],
+      "icon": "./build/",
+      "category": "Utility"
+    },
+    "mac": {
+      "target": [
+        "dmg"
+      ],
+      "icon": "./images/logo.png"
+    }
+  }
+}
