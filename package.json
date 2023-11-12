@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "jquery": "^3.7.1",
-    "lowdb": "^6.1.1",
+    "lowdb": "1.0.0",
     "short-unique-id": "^5.0.3",
     "sweetalert2": "^11.9.0"
   },
