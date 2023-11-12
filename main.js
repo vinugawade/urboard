@@ -1,21 +1,198 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron')
+const {
+  app,
+  BrowserWindow,
+  screen,
+  globalShortcut,
+  clipboard,
+  ipcMain,
+  Tray,
+  Menu,
+  shell
+} = require("electron")
+const ShortUniqueId = require('short-unique-id')
+const { randomUUID } = new ShortUniqueId({ length: 10 })
+const low = require("lowdb")
+const FileSync = require("lowdb/adapters/FileSync")
 const path = require('node:path')
+const adapter = new FileSync(path.join(app.getPath("userData"), "/.urboard.json"));
+const db = low(adapter);
 
-function createWindow () {
-  // Create the browser window.
+db.defaults({ clipboard: [] }).write();
+
+function createWindow() {
+  let appShow = false;
+
   const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    frame: true,
+    width: 400,
+    height: screen.getPrimaryDisplay().workAreaSize.height,
     webPreferences: {
-      preload: path.join(__dirname, 'preload.js')
-    }
-  })
+      preload: path.join(__dirname, "preload.js"),
+      nodeIntegration: true
+    },
+    show: false
+  });
 
-  // and load the index.html of the app.
-  mainWindow.loadFile('index.html')
+  mainWindow.loadFile("index.html");
+
+  globalShortcut.register("CmdOrCtrl+Shift+X", () => {
+    if (!appShow) {
+      appShow = true;
+      mainWindow.show();
+    } else {
+      appShow = false;
+      mainWindow.hide();
+    }
+  });
+
+  ipcMain.on("hide-window", event => {
+    if (appShow) {
+      mainWindow.hide();
+      appShow = false;
+    }
+  });
+
+  // Override the close action to hide window.
+  // mainWindow.on("close", e => {
+  //   if (appShow) {
+  //     e.preventDefault();
+  //     appShow = false;
+  //     mainWindow.hide();
+  //   }
+  // });
+
+  startMonitoringClipboard();
+
+  function startMonitoringClipboard() {
+    mainWindow.webContents.send("app-running");
+    let previousText = clipboard.readText();
+
+    const isDiffText = (str1, str2) => {
+      return str2 && str1 !== str2;
+    };
+
+    setInterval(() => {
+      if (isDiffText(previousText, (previousText = clipboard.readText()))) {
+        writeTextClipboard(clipboard.readText());
+        updateClipboardList();
+      }
+    }, 500);
+  }
+
+  function writeTextClipboard(text) {
+    db.get("clipboard")
+      .push({ id: randomUUID(), text: text })
+      .write();
+  }
+
+  function updateClipboardList() {
+    mainWindow.webContents.send("update-clipboard");
+  }
+
+  const isMac = process.platform === 'darwin'
+  const template = [
+    // { role: 'appMenu' }
+    // { type: 'separator' },
+    ...(isMac
+      ? [{
+        label: "Clipboard",
+        submenu: [
+          { role: 'about' },
+          { role: 'services' },
+          { role: 'hide' },
+          { role: 'hideOthers' },
+          { role: 'unhide' },
+          { role: 'quit' }
+        ]
+      }]
+      : [
+        {
+          label: "Clipboard",
+          submenu: [{
+            label: "Open UR Clipboard",
+            accelerator: process.platform === 'darwin' ? 'Cmd+Shift+X' : 'Ctrl+Shift+X',
+            click: () => {
+              if (!appShow) {
+                appShow = true;
+                mainWindow.show();
+              }
+            }
+          },
+          isMac ? { role: 'close' } : { role: 'quit' }
+          ]
+        }
+      ]),
+    // { role: 'fileMenu' },
+    // { role: 'editMenu' },
+    // { role: 'viewMenu' },
+    {
+      label: 'View',
+      submenu: [
+        { role: 'reload' },
+        { role: 'forceReload' },
+        { role: 'toggleDevTools' },
+        { role: 'togglefullscreen' }
+      ]
+    },
+    // { role: 'shareMenu' },
+    // { role: 'windowMenu' },
+    {
+      label: 'Window',
+      submenu: [
+        { role: 'minimize' },
+        {
+          label: 'Maximize',
+          accelerator: process.platform === 'darwin' ? 'Cmd+Shift+M' : 'Ctrl+Shift+M',
+          click: () => {
+            mainWindow.maximize()
+          }
+        },
+        ...(isMac
+          ? [
+            { role: 'front' },
+            { role: 'window' }
+          ]
+          : [
+            {
+              label: 'Show',
+              accelerator: process.platform === 'darwin' ? 'Cmd+O' : 'Ctrl+O',
+              click: () => {
+                mainWindow.show()
+              }
+            },
+            {
+              label: 'Hide',
+              accelerator: process.platform === 'darwin' ? 'Cmd+W' : 'Ctrl+W',
+              click: () => {
+                mainWindow.hide()
+              }
+            },
+          ])
+      ]
+    },
+    {
+      role: 'help',
+      submenu: [
+        {
+          label: 'About',
+          click: async () => {
+            await shell.openExternal('https://github.com/vinugawade/urboard')
+          }
+        }
+      ]
+    }
+  ]
+
+  const menu = Menu.buildFromTemplate(template)
+  Menu.setApplicationMenu(menu)
+
+  tray = new Tray(path.join(__dirname, "/assets/logo/logo.png"));
+  tray.setToolTip("Clipaste App.");
+  tray.setContextMenu(menu);
 
   // Open the DevTools.
+  // NOTICE: Only For Development Mode.
   // mainWindow.webContents.openDevTools()
 }
 
