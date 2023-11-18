@@ -15,7 +15,8 @@ const { randomUUID } = new ShortUniqueId({ length: 10 })
 const low = require("lowdb")
 const FileSync = require("lowdb/adapters/FileSync")
 const path = require('node:path')
-const adapter = new FileSync(path.join(app.getPath("userData"), "/.urboard.json"));
+const jsonFile = path.join(app.getPath("userData"), "/.urboard.json")
+const adapter = new FileSync(jsonFile);
 const db = low(adapter);
 
 db.defaults({ clipboard: [] }).write();
@@ -24,17 +25,29 @@ function createWindow() {
   let appShow = false;
 
   const mainWindow = new BrowserWindow({
+    title: "UR Clipboard",
     frame: true,
+    minWidth: 400,
     width: 400,
     height: screen.getPrimaryDisplay().workAreaSize.height,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
-      nodeIntegration: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule:true,
     },
-    show: false
+    show: true,
+    autoHideMenuBar: true,
+    kiosk: false,
+    skipTaskbar: false,
+    icon: path.join(__dirname, "/assets/logo/logo.ico"),
+    resizable: true,
+    alwaysOnTop: true,
+    darkTheme: true,
+    images: true,
   });
 
-  mainWindow.loadFile("index.html");
+  mainWindow.loadFile("index.html", {query: {"path": jsonFile}});
 
   globalShortcut.register("CmdOrCtrl+Shift+X", () => {
     if (!appShow) {
@@ -213,7 +226,9 @@ app.whenReady().then(() => {
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
 app.on('window-all-closed', function () {
-  if (process.platform !== 'darwin') app.quit()
+  // if (process.platform !== 'darwin') app.quit()
+  if (process.platform === 'darwin') app.dock.hide();
+  app.quit()
 })
 
 // In this file you can include the rest of your app's specific main process
