@@ -6,7 +6,8 @@
   "scripts": {
     "start": "electron .",
     "d": "electron-builder",
-    "dl": "electron-builder --linux"
+    "dl": "electron-builder --linux",
+    "dm": "electron-builder --mac"
   },
   "repository": "https://github.com/vinugawade/urboard.git",
   "keywords": [
