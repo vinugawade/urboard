@@ -5,20 +5,16 @@
  * `contextIsolation` is turned on. Use the contextBridge API in `preload.js`
  * to expose Node.js functionality from the main process.
  */
-
-const electron = require('electron')
-const { app, ipcRenderer, clipboard } = require("electron")
-const path = require("path")
+const { ipcRenderer, clipboard } = require("electron")
 const low = require("lowdb")
 const FileSync = require("lowdb/adapters/FileSync")
 const Swal = require("sweetalert2")
-
 const $ = require("jquery")
 
 function createItemTemplate(itemID, text) {
   return (
     `
-  <div class="item" itemID="` +
+  <div class="item text-3xl font-bold underline" itemID="` +
     itemID +
     `">
     <div class="text">
@@ -45,9 +41,8 @@ ipcRenderer.on("update-clipboard", async event => {
   await writeLastItem(text[0])
 })
 
-let params = new URLSearchParams(global.location.search);
+let params = new URLSearchParams(global.location.search)
 let filePath = decodeURIComponent(params.get('path'))
-console.log(filePath);
 
 function getLastItemDb() {
   const adapter = new FileSync(

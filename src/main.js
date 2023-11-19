@@ -31,7 +31,7 @@ function createWindow() {
     width: 400,
     height: screen.getPrimaryDisplay().workAreaSize.height,
     webPreferences: {
-      preload: path.join(__dirname, "preload.js"),
+      preload: path.join(__dirname, "./preload.js"),
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule:true,
@@ -40,14 +40,14 @@ function createWindow() {
     autoHideMenuBar: true,
     kiosk: false,
     skipTaskbar: false,
-    icon: path.join(__dirname, "/assets/logo/logo.ico"),
+    icon: path.join(__dirname, "../assets/logo/logo.ico"),
     resizable: true,
     alwaysOnTop: true,
     darkTheme: true,
     images: true,
   });
 
-  mainWindow.loadFile("index.html", {query: {"path": jsonFile}});
+  mainWindow.loadFile("./src/index.html", {query: {"path": jsonFile}});
 
   globalShortcut.register("CmdOrCtrl+Shift+X", () => {
     if (!appShow) {
@@ -200,13 +200,13 @@ function createWindow() {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 
-  tray = new Tray(path.join(__dirname, "/assets/logo/logo.png"));
+  tray = new Tray(path.join(__dirname, "../assets/logo/logo.png"));
   tray.setToolTip("Clipaste App.");
   tray.setContextMenu(menu);
 
   // Open the DevTools.
   // NOTICE: Only For Development Mode.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished

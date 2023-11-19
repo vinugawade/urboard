@@ -5,9 +5,10 @@
   <meta charset="UTF-8">
   <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
   <meta http-equiv="Content-Security-Policy"
-    content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'">
-  <link rel="stylesheet" href="./node_modules/sweetalert2/dist/sweetalert2.css" />
-  <link href="./assets/css/styles.css" rel="stylesheet">
+    content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
+  <link rel="stylesheet" href="../node_modules/sweetalert2/dist/sweetalert2.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="../assets/css/styles.css" rel="stylesheet">
 </head>
 
 <body>
