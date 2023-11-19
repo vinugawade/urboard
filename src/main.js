@@ -29,7 +29,7 @@ function createWindow() {
     frame: true,
     minWidth: 400,
     width: 400,
-    height: screen.getPrimaryDisplay().workAreaSize.height,
+    height: screen.getPrimaryDisplay().workAreaSize.height - 100,
     webPreferences: {
       preload: path.join(__dirname, "./preload.js"),
       nodeIntegration: true,
@@ -206,7 +206,7 @@ function createWindow() {
 
   // Open the DevTools.
   // NOTICE: Only For Development Mode.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished

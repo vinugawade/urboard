@@ -13,25 +13,36 @@ const $ = require("jquery")
 
 function createItemTemplate(itemID, text) {
   return (
-    `
-  <div class="item text-3xl font-bold underline" itemID="` +
+    `<div class="item flex cursor-pointer space-x-8 rounded-lg border-1 border-transparent bg-sky-200 p-4 transition-all hover:scale-105 hover:border-white shadow-lg shadow-sky-600 hover:shadow-sky-400" itemID="` +
     itemID +
-    `">
-    <div class="text">
+    `"><div class="flex w-[50px] flex-1">
+    <xmp class="select-all m-0 w-full overflow-hidden text-ellipsis whitespace-nowrap rounded font-sans text-base font-normal tracking-normal text-black transition-all hover:text-gray-800">
     ` +
     text +
     `
+    </xmp>
+    <div class="flex w-28 items-center justify-between ps-5">
+      <button class="clipboard" itemID="` +
+      itemID +
+      `">
+      <svg class="h-6 w-6 overflow-hidden transition-all hover:scale-125" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
+        <path class="h-6 w-6 transition-all fill-sky-500 hover:fill-sky-600" d="M216 32H88a8 8 0 0 0-8 8v40H40a8 8 0 0 0-8 8v128a8 8 0 0 0 8 8h128a8 8 0 0 0 8-8v-40h40a8 8 0 0 0 8-8V40a8 8 0 0 0-8-8Zm-8 128h-32V88a8 8 0 0 0-8-8H96V48h112Z"></path>
+      </svg>
+      </button>
+      <button class="delete" itemID="` +
+      itemID +
+      `">
+        <svg class="h-6 w-6 overflow-hidden transition-all hover:scale-125" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 36 36">
+        <path fill="red" d="M27.14 34H8.86A2.93 2.93 0 0 1 6 31V11.23h2V31a.93.93 0 0 0 .86 1h18.28a.93.93 0 0 0 .86-1V11.23h2V31a2.93 2.93 0 0 1-2.86 3Z" class="clr-i-outline clr-i-outline-path-1"></path>
+        <path fill="red" d="M30.78 9H5a1 1 0 0 1 0-2h25.78a1 1 0 0 1 0 2Z" class="clr-i-outline clr-i-outline-path-2"></path>
+        <path fill="red" d="M21 13h2v15h-2z" class="clr-i-outline clr-i-outline-path-3"></path>
+        <path fill="red" d="M13 13h2v15h-2z" class="clr-i-outline clr-i-outline-path-4"></path>
+        <path fill="red" d="M23 5.86h-1.9V4h-6.2v1.86H13V4a2 2 0 0 1 1.9-2h6.2A2 2 0 0 1 23 4Z" class="clr-i-outline clr-i-outline-path-5"></path>
+        <path fill="none" d="M0 0h36v36H0z"></path>
+        </svg>
+      </button>
+      </div>
     </div>
-    <button class="clipboard" itemID="` +
-    itemID +
-    `">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256"><path fill="#1c6ec1" d="M216 32H88a8 8 0 0 0-8 8v40H40a8 8 0 0 0-8 8v128a8 8 0 0 0 8 8h128a8 8 0 0 0 8-8v-40h40a8 8 0 0 0 8-8V40a8 8 0 0 0-8-8Zm-8 128h-32V88a8 8 0 0 0-8-8H96V48h112Z"/></svg>
-    </button>
-    <button class="delete" itemID="` +
-    itemID +
-    `">
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 36 36"><path fill="red" d="M27.14 34H8.86A2.93 2.93 0 0 1 6 31V11.23h2V31a.93.93 0 0 0 .86 1h18.28a.93.93 0 0 0 .86-1V11.23h2V31a2.93 2.93 0 0 1-2.86 3Z" class="clr-i-outline clr-i-outline-path-1"/><path fill="red" d="M30.78 9H5a1 1 0 0 1 0-2h25.78a1 1 0 0 1 0 2Z" class="clr-i-outline clr-i-outline-path-2"/><path fill="red" d="M21 13h2v15h-2z" class="clr-i-outline clr-i-outline-path-3"/><path fill="red" d="M13 13h2v15h-2z" class="clr-i-outline clr-i-outline-path-4"/><path fill="red" d="M23 5.86h-1.9V4h-6.2v1.86H13V4a2 2 0 0 1 1.9-2h6.2A2 2 0 0 1 23 4Z" class="clr-i-outline clr-i-outline-path-5"/><path fill="none" d="M0 0h36v36H0z"/></svg>
-    </button>
   </div>`
   )
 }
