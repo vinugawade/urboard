@@ -120,14 +120,14 @@ $(".delete-all").on("click", function() {
   })
 })
 
-$("#items").on("click", ".item button.delete", function() {
+$("#clips").on("click", ".item button.delete", function() {
   clipId = $(this).attr("clipId")
   deleteItemClipboard(clipId)
 })
 
-$("#items").on("click", ".item button.clipboard", function() {
+$("#clips").on("click", ".item button.clipboard", function() {
   clipId = $(this).attr("clipId")
-  let text = $("#items div.item[clipId='" + clipId + "'] div.text").text()
+  let text = $("#clips div.item[clipId='" + clipId + "'] div.text").text()
   clipboard.writeText(text)
 })
 
@@ -145,14 +145,14 @@ function deleteItemClipboard(clipId) {
 
 function writeItems(items) {
   items.forEach(element => {
-    $("#items").append(createItemTemplate(element.id, element.text))
+    $("#clips").append(createItemTemplate(element.id, element.text))
   })
 }
 
 function writeLastItem(item) {
-  $("#items").prepend(createItemTemplate(item.id, item.text))
+  $("#clips").prepend(createItemTemplate(item.id, item.text))
 }
 
 function clearDashboard() {
-  $("#items").empty()
+  $("#clips").empty()
 }
