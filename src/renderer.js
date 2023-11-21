@@ -81,21 +81,21 @@ $(function() {
 //   ipcRenderer.send("hide-window")
 // })
 
-$(".exit").on("click", function() {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "Application is closing. Are you sure you want to continue?",
-    showCancelButton: true,
-    confirmButtonColor: "#d33",
-    cancelButtonColor: "#aaa",
-    confirmButtonText: "Yes, Exit!",
-    cancelButtonText: "Cancel"
-  }).then(result => {
-    if (result.value) {
-      ipcRenderer.send("app-quit")
-    }
-  })
-})
+// $(".exit").on("click", function() {
+//   Swal.fire({
+//     title: "Are you sure?",
+//     text: "Application is closing. Are you sure you want to continue?",
+//     showCancelButton: true,
+//     confirmButtonColor: "#d33",
+//     cancelButtonColor: "#aaa",
+//     confirmButtonText: "Yes, Exit!",
+//     cancelButtonText: "Cancel"
+//   }).then(result => {
+//     if (result.value) {
+//       ipcRenderer.send("app-quit")
+//     }
+//   })
+// })
 
 $(".delete-all").on("click", function() {
   Swal.fire({
@@ -104,7 +104,7 @@ $(".delete-all").on("click", function() {
     showCancelButton: true,
     confirmButtonColor: "#d33",
     cancelButtonColor: "#aaa",
-    confirmButtonText: "Delete Clipboard",
+    confirmButtonText: "Clear Clipboard",
     cancelButtonText: "Cancel"
   }).then(result => {
     if (result.value) {
