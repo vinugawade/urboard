@@ -27,6 +27,21 @@
             <span class="flex flex-col icon icon-delete-all"> Clear All </span>
         </button>
     </div>
+
+    <!-- Search Field -->
+    <div class="flex w-full lg:w-full md:w-full xl:w-full flex-col items-center justify-center relative text-gray-500 pt-4">
+      <div class="relative">
+        <input type="text" id="search-q"
+          class="p-1.5 pl-9 rounded border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent hover:border-white shadow-lg shadow-sky-600 hover:shadow-sky-400 transition-all"
+          placeholder="search" />
+        <svg class="w-4 h-4 absolute left-2.5 top-3 fill-transparent stroke-black hover:stroke-sky-600"
+          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
+            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+    </div>
+
     <div class="relative mx-auto mt-5 flex w-72 lg:w-full md:w-full xl:w-full max-w-lg flex-col">
       <div class="relative space-y-3" id="clips">
       </div>

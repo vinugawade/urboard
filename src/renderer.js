@@ -151,3 +151,11 @@ function writeLastItem(item) {
 function clearDashboard() {
   $("#clips").empty()
 }
+
+// Search in clipboard.
+$("#search-q").on("keyup", function() {
+  var value = this.value.toLowerCase().trim();
+  $("#clips div.item").show().filter(function() {
+    return $(this).text().toLowerCase().trim().indexOf(value) == -1;
+  }).hide();
+});
