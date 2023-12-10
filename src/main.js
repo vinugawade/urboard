@@ -27,9 +27,9 @@ function createWindow() {
   const mainWindow = new BrowserWindow({
     title: "UR Clipboard",
     frame: true,
-    minWidth: 400,
-    width: 400,
-    height: screen.getPrimaryDisplay().workAreaSize.height - 100,
+    minWidth: 330,
+    width: 330,
+    height: screen.getPrimaryDisplay().workAreaSize.height - 150,
     webPreferences: {
       preload: path.join(__dirname, "./preload.js"),
       nodeIntegration: true,
@@ -86,17 +86,29 @@ function createWindow() {
     };
 
     setInterval(() => {
-      if (isDiffText(previousText, (previousText = clipboard.readText()))) {
-        writeTextClipboard(clipboard.readText());
-        updateClipboardList();
+      const currentText = clipboard.readText();
+      if (isDiffText(previousText, currentText) && !isDuplicateValue(currentText)) {
+        writeTextClipboard(currentText);
       }
+
+      previousText = currentText;
     }, 500);
   }
 
+  function isDuplicateValue(text) {
+    const clipboardItems = db.get("clipboard").value();
+    const trimmedText = text.trim();
+    return clipboardItems.some(item => item.text === trimmedText);
+  }
+
   function writeTextClipboard(text) {
+    const trimmedText = text.trim();
+    const id = randomUUID();
     db.get("clipboard")
-      .push({ id: randomUUID(), text: text })
+      .push({ id, text: trimmedText })
       .write();
+
+    updateClipboardList();
   }
 
   function updateClipboardList() {
@@ -201,12 +213,12 @@ function createWindow() {
   Menu.setApplicationMenu(menu)
 
   tray = new Tray(path.join(__dirname, "../assets/logo/logo.png"));
-  tray.setToolTip("Clipaste App.");
+  tray.setToolTip("UR Clipboard");
   tray.setContextMenu(menu);
 
   // Open the DevTools.
   // NOTICE: Only For Development Mode.
-  // mainWindow.webContents.openDevTools()
+  mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished
