@@ -96,6 +96,8 @@ function createWindow() {
   }
 
   function isDuplicateValue(text) {
+    const adapter = new FileSync(jsonFile);
+    const db = low(adapter);
     const clipboardItems = db.get("clipboard").value();
     const trimmedText = text.trim();
     return clipboardItems.some(item => item.text === trimmedText);
@@ -104,6 +106,8 @@ function createWindow() {
   function writeTextClipboard(text) {
     const trimmedText = text.trim();
     const id = randomUUID();
+    const adapter = new FileSync(jsonFile);
+    const db = low(adapter);
     db.get("clipboard")
       .push({ id, text: trimmedText })
       .write();
