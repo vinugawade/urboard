@@ -100,8 +100,8 @@ $(".delete-all").on("click", function() {
     showCancelButton: true,
     confirmButtonColor: "#d33",
     cancelButtonColor: "#aaa",
-    confirmButtonText: "Clear Clipboard",
-    cancelButtonText: "Cancel"
+    confirmButtonText: "Yes",
+    cancelButtonText: "No"
   }).then(result => {
     if (result.value) {
       const adapter = new FileSync(filePath)
@@ -110,7 +110,7 @@ $(".delete-all").on("click", function() {
         .remove()
         .write()
 
-      db.defaults({ clipboard: [] }).write();
+      db.defaults({ clipboard: [] }).write()
       clearDashboard()
     }
   })
@@ -118,17 +118,30 @@ $(".delete-all").on("click", function() {
 
 $("#clips").on("click", ".item button.delete", function() {
   clipId = $(this).attr("clipId")
-  deleteItemClipboard(clipId)
+  deleteClipboardItem(clipId)
 })
 
 $("#clips").on("click", ".item button.copy-to-clipboard", function() {
   clipId = $(this).attr("clipId")
   let text = $("#clips div.item[clipId='" + clipId + "'] xmp.select-all").text()
-  const trimmedText = text.trim();
+  const trimmedText = text.trim()
   clipboard.writeText(trimmedText)
+
+  // Show Tooltip.
+  Swal.fire({
+    position: "top-end",
+    toast: true,
+    icon: "success",
+    title: "Text Copied",
+    showConfirmButton: false,
+    timer: 1300,
+    width: "13rem",
+    padding: ".5rem",
+    timerProgressBar: true
+  })
 })
 
-function deleteItemClipboard(clipId) {
+function deleteClipboardItem(clipId) {
   const adapter = new FileSync(filePath)
   const db = low(adapter)
   db.get("clipboard")
@@ -136,6 +149,19 @@ function deleteItemClipboard(clipId) {
     .write()
 
   $("div[clipId=" + clipId + "]").remove()
+
+  // Show Tooltip.
+  Swal.fire({
+    position: "top-end",
+    toast: true,
+    icon: "info",
+    title: "Text Deleted",
+    showConfirmButton: false,
+    timer: 1300,
+    width: "14rem",
+    padding: ".5rem",
+    timerProgressBar: true
+  })
 }
 
 function writeItems(items) {
@@ -154,8 +180,8 @@ function clearDashboard() {
 
 // Search in clipboard.
 $("#search-q").on("keyup", function() {
-  var value = this.value.toLowerCase().trim();
+  var value = this.value.toLowerCase().trim()
   $("#clips div.item").show().filter(function() {
-    return $(this).text().toLowerCase().trim().indexOf(value) == -1;
-  }).hide();
-});
+    return $(this).text().toLowerCase().trim().indexOf(value) == -1
+  }).hide()
+})

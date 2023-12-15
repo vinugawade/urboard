@@ -16,13 +16,13 @@ const low = require("lowdb")
 const FileSync = require("lowdb/adapters/FileSync")
 const path = require('node:path')
 const jsonFile = path.join(app.getPath("userData"), "/.urboard.json")
-const adapter = new FileSync(jsonFile);
-const db = low(adapter);
+const adapter = new FileSync(jsonFile)
+const db = low(adapter)
 
-db.defaults({ clipboard: [] }).write();
+db.defaults({ clipboard: [] }).write()
 
 function createWindow() {
-  let appShow = false;
+  let appShow = false
 
   const mainWindow = new BrowserWindow({
     title: "UR Clipboard",
@@ -45,78 +45,78 @@ function createWindow() {
     alwaysOnTop: true,
     darkTheme: true,
     images: true,
-  });
+  })
 
-  mainWindow.loadFile("./src/index.html", {query: {"path": jsonFile}});
+  mainWindow.loadFile("./src/index.html", {query: {"path": jsonFile}})
 
   globalShortcut.register("CmdOrCtrl+Shift+X", () => {
     if (!appShow) {
-      appShow = true;
-      mainWindow.show();
+      appShow = true
+      mainWindow.show()
     } else {
-      appShow = false;
-      mainWindow.hide();
+      appShow = false
+      mainWindow.hide()
     }
-  });
+  })
 
   ipcMain.on("hide-window", event => {
     if (appShow) {
-      mainWindow.hide();
-      appShow = false;
+      mainWindow.hide()
+      appShow = false
     }
-  });
+  })
 
   // Override the close action to hide window.
   // mainWindow.on("close", e => {
   //   if (appShow) {
-  //     e.preventDefault();
-  //     appShow = false;
-  //     mainWindow.hide();
+  //     e.preventDefault()
+  //     appShow = false
+  //     mainWindow.hide()
   //   }
-  // });
+  // })
 
-  startMonitoringClipboard();
+  startMonitoringClipboard()
 
   function startMonitoringClipboard() {
-    mainWindow.webContents.send("app-running");
-    let previousText = clipboard.readText();
+    mainWindow.webContents.send("app-running")
+    let previousText = clipboard.readText()
 
     const isDiffText = (str1, str2) => {
-      return str2 && str1 !== str2;
-    };
+      return str2 && str1 !== str2
+    }
 
     setInterval(() => {
-      const currentText = clipboard.readText();
+      const currentText = clipboard.readText()
       if (isDiffText(previousText, currentText) && !isDuplicateValue(currentText)) {
-        writeTextClipboard(currentText);
+        writeTextClipboard(currentText)
       }
 
-      previousText = currentText;
-    }, 500);
+      previousText = currentText
+    }, 500)
   }
 
   function isDuplicateValue(text) {
-    const adapter = new FileSync(jsonFile);
-    const db = low(adapter);
-    const clipboardItems = db.get("clipboard").value();
-    const trimmedText = text.trim();
-    return clipboardItems.some(item => item.text === trimmedText);
+    const adapter = new FileSync(jsonFile)
+    const db = low(adapter)
+    const clipboardItems = db.get("clipboard").value()
+    const trimmedText = text.trim()
+    return clipboardItems.some(item => item.text === trimmedText)
   }
 
   function writeTextClipboard(text) {
-    const trimmedText = text.trim();
-    const id = randomUUID();
-    const adapter = new FileSync(jsonFile);
-    const db = low(adapter);
+    const trimmedText = text.trim()
+    const id = randomUUID()
+    const adapter = new FileSync(jsonFile)
+    const db = low(adapter)
     db.get("clipboard")
       .push({ id, text: trimmedText })
-      .write();
+      .write()
 
-    updateClipboardList();
+    updateClipboardList()
   }
 
   function updateClipboardList() {
-    mainWindow.webContents.send("update-clipboard");
+    mainWindow.webContents.send("update-clipboard")
   }
 
   const isMac = process.platform === 'darwin'
@@ -143,8 +143,8 @@ function createWindow() {
             accelerator: process.platform === 'darwin' ? 'Cmd+Shift+X' : 'Ctrl+Shift+X',
             click: () => {
               if (!appShow) {
-                appShow = true;
-                mainWindow.show();
+                appShow = true
+                mainWindow.show()
               }
             }
           },
@@ -216,9 +216,9 @@ function createWindow() {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 
-  tray = new Tray(path.join(__dirname, "../assets/logo/logo.png"));
-  tray.setToolTip("UR Clipboard");
-  tray.setContextMenu(menu);
+  tray = new Tray(path.join(__dirname, "../assets/logo/logo.png"))
+  tray.setToolTip("UR Clipboard")
+  tray.setContextMenu(menu)
 
   // Open the DevTools.
   // NOTICE: Only For Development Mode.
@@ -243,7 +243,7 @@ app.whenReady().then(() => {
 // explicitly with Cmd + Q.
 app.on('window-all-closed', function () {
   // if (process.platform !== 'darwin') app.quit()
-  if (process.platform === 'darwin') app.dock.hide();
+  if (process.platform === 'darwin') app.dock.hide()
   app.quit()
 })
 
