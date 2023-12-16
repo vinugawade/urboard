@@ -40,14 +40,14 @@ function createWindow() {
     autoHideMenuBar: true,
     kiosk: false,
     skipTaskbar: false,
-    icon: path.join(__dirname, "../assets/logo/logo.ico"),
+    icon: path.join(__dirname, "assets/logo/logo.ico"),
     resizable: true,
     alwaysOnTop: true,
     darkTheme: true,
     images: true,
   })
 
-  mainWindow.loadFile("./src/index.html", {query: {"path": jsonFile}})
+  mainWindow.loadFile("index.html", {query: {"path": jsonFile}})
 
   globalShortcut.register("CmdOrCtrl+Shift+X", () => {
     if (!appShow) {
@@ -216,7 +216,7 @@ function createWindow() {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 
-  tray = new Tray(path.join(__dirname, "../assets/logo/logo.png"))
+  tray = new Tray(path.join(__dirname, "assets/logo/logo.png"))
   tray.setToolTip("UR Clipboard")
   tray.setContextMenu(menu)
 
