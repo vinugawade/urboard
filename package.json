@@ -2,7 +2,7 @@
   "name": "urboard",
   "version": "1.0.0",
   "description": "The Clipboard Manager",
-  "main": "./src/main.js",
+  "main": "main.js",
   "scripts": {
     "start": "electron .",
     "d": "electron-builder",
@@ -16,9 +16,10 @@
     "paste",
     "keynote"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "author": "Vinay Gawade <vinulike11@gmail.com>",
   "devDependencies": {
+    "@hydraulic/conveyor": "^12.1.0",
     "electron": "^27.0.4",
     "electron-builder": "^24.6.4"
   },
@@ -26,7 +27,7 @@
     "jquery": "^3.7.1",
     "lowdb": "1.0.0",
     "short-unique-id": "^5.0.3",
-    "sweetalert2": "^11.9.0"
+    "sweetalert2": "^11.10.1"
   },
   "build": {
     "appId": "com.vinugawade.urboard",
