@@ -22,7 +22,7 @@ const db = low(adapter)
 db.defaults({ clipboard: [] }).write()
 
 function createWindow() {
-  let appShow = false
+  let appShow = true
 
   const mainWindow = new BrowserWindow({
     title: "UR Board",
@@ -53,16 +53,12 @@ function createWindow() {
   mainWindow.loadFile("index.html", { query: { "path": jsonFile } })
 
   globalShortcut.register("Alt+Shift+X", () => {
-    if (!appShow) {
-      appShow = true
-      mainWindow.show()
-    } else {
-      appShow = false
-      mainWindow.hide()
-    }
+    appShow = !appShow
+    appShow ? mainWindow.show() : mainWindow.hide()
   })
 
   ipcMain.on("hide-window", () => {
+    appShow = !appShow
     mainWindow.hide()
   })
 
@@ -77,7 +73,7 @@ function createWindow() {
 
   // Open URLs externally.
   var handleRedirect = (e, url) => {
-    if(url != mainWindow.webContents.getURL()) {
+    if (url != mainWindow.webContents.getURL()) {
       e.preventDefault()
       require('electron').shell.openExternal(url)
     }

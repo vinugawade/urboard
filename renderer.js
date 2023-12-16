@@ -73,7 +73,7 @@ $(() => {
   writeItems(items)
 })
 
-$("button.minimize-btn").on("click", () => {
+$("button#minimize-btn").on("click", () => {
   ipcRenderer.send("hide-window")
 })
 
@@ -295,24 +295,24 @@ function clearDashboard() {
 
 // Search in clipboard.
 $("#search-q").on("keyup", function () {
-  var value = this.value.toLowerCase().trim();
-  filterItems(value);
-});
+  var value = this.value.toLowerCase().trim()
+  filterItems(value)
+})
 
 $("#search-q").on("input", () => {
-  var value = $("#search-q").val().toLowerCase().trim();
+  var value = $("#search-q").val().toLowerCase().trim()
   if (value === "") {
-    filterItems("");
+    filterItems("")
   }
-});
+})
 
 function filterItems(value) {
   $("#clips div.item").each(function () {
-    var $this = $(this);
+    var $this = $(this)
     if ($this.text().toLowerCase().trim().indexOf(value) === -1) {
-      $this.hide();
+      $this.hide()
     } else {
-      $this.show();
+      $this.show()
     }
-  });
+  })
 }
