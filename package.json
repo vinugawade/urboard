@@ -1,5 +1,6 @@
 {
   "name": "urboard",
+  "productName": "UR Board",
   "version": "1.0.0",
   "description": "The Clipboard Manager",
   "main": "main.js",
@@ -40,14 +41,14 @@
         "**/*",
         "build/icon.*"
       ],
-      "icon": "./build/",
+      "icon": "build/",
       "category": "Utility"
     },
     "mac": {
       "target": [
         "dmg"
       ],
-      "icon": "./assets/logo/logo.jpg"
+      "icon": "assets/logo/logo.jpg"
     }
   }
 }

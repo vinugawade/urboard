@@ -25,13 +25,13 @@ function createWindow() {
   let appShow = false
 
   const mainWindow = new BrowserWindow({
-    title: "UR Clipboard",
+    title: "UR Board",
     frame: true,
     minWidth: 330,
     width: 330,
     height: screen.getPrimaryDisplay().workAreaSize.height - 150,
     webPreferences: {
-      preload: path.join(__dirname, "./preload.js"),
+      preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
       contextIsolation: false,
       enableRemoteModule:true,
@@ -49,7 +49,7 @@ function createWindow() {
 
   mainWindow.loadFile("index.html", {query: {"path": jsonFile}})
 
-  globalShortcut.register("CmdOrCtrl+Shift+X", () => {
+  globalShortcut.register("CommandOrControl+Shift+X", () => {
     if (!appShow) {
       appShow = true
       mainWindow.show()
@@ -139,7 +139,7 @@ function createWindow() {
         {
           label: "Clipboard",
           submenu: [{
-            label: "Open UR Clipboard",
+            label: "Open UR Board",
             accelerator: process.platform === 'darwin' ? 'Cmd+Shift+X' : 'Ctrl+Shift+X',
             click: () => {
               if (!appShow) {
