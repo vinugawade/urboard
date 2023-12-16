@@ -7,20 +7,21 @@
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'self'; script-src 'self' https://cdn.tailwindcss.com 'unsafe-inline'; style-src 'self' 'unsafe-inline'">
   <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preload" href="assets/font/Kalam/Kalam-Regular.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
   <link href="assets/css/styles.css" rel="stylesheet">
 </head>
 
 <body>
   <div class="min-h-screen items-center justify-center bg-gradient-to-r from-sky-500 via-sky-400 to-sky-200 p-2 pt-0">
-    <hr class="draggable border-0 relative top-0 h-6 bg-gradient-to-r from-sky-500 via-sky-400 to-sky-200">
+    <hr class="z-50 draggable sticky top-0 border-0 h-3 bg-gradient-to-r from-sky-500 via-sky-400 to-sky-200">
     <nav
-      class="sticky from-blue-gray-900 to-blue-gray-800 mx-auto block w-full max-w-screen-xl rounded-xl bg-gradient-to-tr px-4 py-3 text-white shadow-md">
+      class="z-50 sticky top-3 h-full w-full bg-gradient-to-r from-sky-500 via-sky-400 to-sky-200 px-3 py-3 text-white rounded-lg shadow-[0px_0px_15px_0px_rgba(12,_82,_127,_1)]">
       <div class="flex flex-wrap items-center justify-between gap-y-4 text-white">
         <span
           class="draggable ml-2 mr-4 block cursor-move select-none py-1.5 font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit antialiased">
           UR Board </span>
         <div class="ml-auto flex gap-1 md:mr-4">
-          <button title="Switch Mode"
+          <!-- <button title="Switch Mode"
             id="theme-switch" class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button">
             <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
@@ -29,10 +30,10 @@
                   d="M10 6a8 8 0 0 0 11.955 6.956C21.474 18.03 17.2 22 12 22C6.477 22 2 17.523 2 12c0-5.2 3.97-9.474 9.044-9.955A7.963 7.963 0 0 0 10 6m-6 6a8 8 0 0 0 8 8a8.006 8.006 0 0 0 6.957-4.045c-.316.03-.636.045-.957.045c-5.523 0-10-4.477-10-10c0-.321.015-.64.045-.957A8.006 8.006 0 0 0 4 12m14.164-9.709L19 2.5v1l-.836.209a2 2 0 0 0-1.455 1.455L16.5 6h-1l-.209-.836a2 2 0 0 0-1.455-1.455L13 3.5v-1l.836-.209A2 2 0 0 0 15.29.836L15.5 0h1l.209.836a2 2 0 0 0 1.455 1.455m5 5L24 7.5v1l-.836.209a2 2 0 0 0-1.455 1.455L21.5 11h-1l-.209-.836a2 2 0 0 0-1.455-1.455L18 8.5v-1l.836-.209a2 2 0 0 0 1.455-1.455L20.5 5h1l.209.836a2 2 0 0 0 1.455 1.455" />
               </svg>
             </span>
-          </button>
+          </button> -->
 
-          <button title="Clear All"
-            id="delete-all" class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          <button title="Clear All" id="delete-all"
+            class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button">
             <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
@@ -42,8 +43,8 @@
             </span>
           </button>
 
-          <button title="Information"
-            id="info-btn" class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          <button title="Information" id="info-btn"
+            class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button">
             <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
@@ -53,8 +54,8 @@
             </span>
           </button>
 
-          <button title="Minimize Window"
-            id="minimize-btn" class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+          <button title="Minimize Window" id="minimize-btn"
+            class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
             type="button">
             <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16">

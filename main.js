@@ -29,8 +29,8 @@ function createWindow() {
     frame: false,
     x: screen.getPrimaryDisplay().bounds.width,
     y: 100,
-    minWidth: 330,
-    width: 330,
+    minWidth: 340,
+    width: 340,
     height: screen.getPrimaryDisplay().workAreaSize.height - 100,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
@@ -52,7 +52,7 @@ function createWindow() {
 
   mainWindow.loadFile("index.html", { query: { "path": jsonFile } })
 
-  globalShortcut.register("CommandOrControl+Shift+X", () => {
+  globalShortcut.register("Alt+Shift+X", () => {
     if (!appShow) {
       appShow = true
       mainWindow.show()
@@ -75,6 +75,17 @@ function createWindow() {
   //   }
   // })
 
+  // Open URLs externally.
+  var handleRedirect = (e, url) => {
+    if(url != mainWindow.webContents.getURL()) {
+      e.preventDefault()
+      require('electron').shell.openExternal(url)
+    }
+  }
+  mainWindow.webContents.on('will-navigate', handleRedirect)
+  mainWindow.webContents.on('new-window', handleRedirect)
+
+  // Check system clipboard.
   startMonitoringClipboard()
 
   function startMonitoringClipboard() {
