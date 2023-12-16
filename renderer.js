@@ -23,15 +23,15 @@ function createItems(clipId, text) {
     </xmp>
     <div class="flex w-28 items-center justify-between ps-10">
       <button class="copy-to-clipboard" clipId="` +
-      clipId +
-      `">
+    clipId +
+    `">
       <svg class="h-4 w-4 overflow-hidden transition-all hover:scale-125" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
         <path class="h-4 w-4 transition-all fill-sky-500 hover:fill-sky-600" d="M216 32H88a8 8 0 0 0-8 8v40H40a8 8 0 0 0-8 8v128a8 8 0 0 0 8 8h128a8 8 0 0 0 8-8v-40h40a8 8 0 0 0 8-8V40a8 8 0 0 0-8-8Zm-8 128h-32V88a8 8 0 0 0-8-8H96V48h112Z"></path>
       </svg>
       </button>
       <button class="delete" clipId="` +
-      clipId +
-      `">
+    clipId +
+    `">
         <svg class="h-4 w-4 overflow-hidden transition-all hover:scale-125" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 36 36">
         <path fill="red" d="M27.14 34H8.86A2.93 2.93 0 0 1 6 31V11.23h2V31a.93.93 0 0 0 .86 1h18.28a.93.93 0 0 0 .86-1V11.23h2V31a2.93 2.93 0 0 1-2.86 3Z" class="clr-i-outline clr-i-outline-path-1"></path>
         <path fill="red" d="M30.78 9H5a1 1 0 0 1 0-2h25.78a1 1 0 0 1 0 2Z" class="clr-i-outline clr-i-outline-path-2"></path>
@@ -47,7 +47,7 @@ function createItems(clipId, text) {
   )
 }
 
-ipcRenderer.on("update-clipboard", async event => {
+ipcRenderer.on("update-clipboard", async () => {
   let text = await getLastItemDb()
   await writeLastItem(text[0])
 })
@@ -64,7 +64,7 @@ function getLastItemDb() {
     .value())
 }
 
-$(function() {
+$(() => {
   const adapter = new FileSync(filePath)
   const db = low(adapter)
   const items = db.get("clipboard").value()
@@ -73,11 +73,11 @@ $(function() {
   writeItems(items)
 })
 
-// $(".minimize").on("click", function() {
-//   ipcRenderer.send("hide-window")
-// })
+$("button.minimize-btn").on("click", () => {
+  ipcRenderer.send("hide-window")
+})
 
-// $(".exit").on("click", function() {
+// $(".exit").on("click", () => {
 //   Swal.fire({
 //     title: "Are you sure?",
 //     text: "Application is closing. Are you sure you want to continue?",
@@ -93,7 +93,7 @@ $(function() {
 //   })
 // })
 
-$(".delete-all").on("click", function() {
+$("button#delete-all").on("click", () => {
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -116,18 +116,18 @@ $(".delete-all").on("click", function() {
   })
 })
 
-$("#clips").on("click", ".item button.delete", function() {
+$("#clips").on("click", ".item button.delete", function () {
   clipId = $(this).attr("clipId")
   deleteClipboardItem(clipId)
 })
 
-$("#clips").on("click", ".item button.copy-to-clipboard", function() {
-  clipId = $(this).attr("clipId")
+$("#clips").on("click", ".item button.copy-to-clipboard", function () {
+  let clipId = $(this).attr("clipId")
   let text = $("#clips div.item[clipId='" + clipId + "'] xmp.select-all").text()
   const trimmedText = text.trim()
   clipboard.writeText(trimmedText)
 
-  // Show Tooltip.
+  // Show Toast.
   Swal.fire({
     position: "top-end",
     toast: true,
@@ -141,6 +141,13 @@ $("#clips").on("click", ".item button.copy-to-clipboard", function() {
   })
 })
 
+$("button#info-btn").on("click", () => {
+  // Show Toast.
+  Swal.fire({
+    title: "Text Copied",
+  })
+})
+
 function deleteClipboardItem(clipId) {
   const adapter = new FileSync(filePath)
   const db = low(adapter)
@@ -150,7 +157,7 @@ function deleteClipboardItem(clipId) {
 
   $("div[clipId=" + clipId + "]").remove()
 
-  // Show Tooltip.
+  // Show Toast.
   Swal.fire({
     position: "top-end",
     toast: true,
@@ -179,9 +186,25 @@ function clearDashboard() {
 }
 
 // Search in clipboard.
-$("#search-q").on("keyup", function() {
-  var value = this.value.toLowerCase().trim()
-  $("#clips div.item").show().filter(function() {
-    return $(this).text().toLowerCase().trim().indexOf(value) == -1
-  }).hide()
-})
+$("#search-q").on("keyup", function () {
+  var value = this.value.toLowerCase().trim();
+  filterItems(value);
+});
+
+$("#search-q").on("input", () => {
+  var value = $("#search-q").val().toLowerCase().trim();
+  if (value === "") {
+    filterItems("");
+  }
+});
+
+function filterItems(value) {
+  $("#clips div.item").each(function () {
+    var $this = $(this);
+    if ($this.text().toLowerCase().trim().indexOf(value) === -1) {
+      $this.hide();
+    } else {
+      $this.show();
+    }
+  });
+}

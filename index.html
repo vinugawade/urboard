@@ -11,41 +11,73 @@
 </head>
 
 <body>
+  <div class="min-h-screen items-center justify-center bg-gradient-to-r from-sky-500 via-sky-400 to-sky-200 p-2 pt-0">
+    <hr class="draggable border-0 relative top-0 h-6 bg-gradient-to-r from-sky-500 via-sky-400 to-sky-200">
+    <nav
+      class="sticky from-blue-gray-900 to-blue-gray-800 mx-auto block w-full max-w-screen-xl rounded-xl bg-gradient-to-tr px-4 py-3 text-white shadow-md">
+      <div class="flex flex-wrap items-center justify-between gap-y-4 text-white">
+        <span
+          class="draggable ml-2 mr-4 block cursor-move select-none py-1.5 font-sans text-base font-semibold leading-relaxed tracking-normal text-inherit antialiased">
+          UR Board </span>
+        <div class="ml-auto flex gap-1 md:mr-4">
+          <button title="Switch Mode"
+            id="theme-switch" class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button">
+            <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M10 6a8 8 0 0 0 11.955 6.956C21.474 18.03 17.2 22 12 22C6.477 22 2 17.523 2 12c0-5.2 3.97-9.474 9.044-9.955A7.963 7.963 0 0 0 10 6m-6 6a8 8 0 0 0 8 8a8.006 8.006 0 0 0 6.957-4.045c-.316.03-.636.045-.957.045c-5.523 0-10-4.477-10-10c0-.321.015-.64.045-.957A8.006 8.006 0 0 0 4 12m14.164-9.709L19 2.5v1l-.836.209a2 2 0 0 0-1.455 1.455L16.5 6h-1l-.209-.836a2 2 0 0 0-1.455-1.455L13 3.5v-1l.836-.209A2 2 0 0 0 15.29.836L15.5 0h1l.209.836a2 2 0 0 0 1.455 1.455m5 5L24 7.5v1l-.836.209a2 2 0 0 0-1.455 1.455L21.5 11h-1l-.209-.836a2 2 0 0 0-1.455-1.455L18 8.5v-1l.836-.209a2 2 0 0 0 1.455-1.455L20.5 5h1l.209.836a2 2 0 0 0 1.455 1.455" />
+              </svg>
+            </span>
+          </button>
 
-  <div class="min-h-screen items-center justify-center bg-gradient-to-r from-sky-500 via-sky-400 to-sky-200 p-2 pt-4">
-    <div
-      class="mx-auto flex flex-col justify-items-end items-center w-32 rounded font-sans text-base font-normal hover:font-semibold tracking-normal text-black hover:text-white font=sem border-1 border-transparent bg-sky-200 hover:bg-red-600 p-2 transition-all hover:scale-105 hover:border-white shadow-lg shadow-sky-600 hover:shadow-sky-400"
-      id="header">
-      <button class="delete-all flex flex-1">
-        <svg class="flex flex-col h-6 w-6 overflow-hidden me-2 " xmlns="http://www.w3.org/2000/svg" width="32"
-          height="32" viewBox="0 0 48 48">
-          <g stroke-linejoin="round" stroke-width="4">
-            <path class="fill-transparent stroke-black" stroke-linecap="round"
-              d="M20 5.91406H28V13.9141H43V21.9141H5V13.9141H20V5.91406Z" clip-rule="evenodd" />
-            <path class="fill-transparent stroke-black" d="M8 40H40V22H8V40Z" />
-            <path class="fill-transparent stroke-black" stroke-linecap="round" d="M16 39.8976V33.9141" />
-            <path class="fill-transparent stroke-black" stroke-linecap="round" d="M24 39.8977V33.8977" />
-            <path class="fill-transparent stroke-black" stroke-linecap="round" d="M32 39.8976V33.9141" />
-            <path class="fill-transparent stroke-black" stroke-linecap="round" d="M12 40H36" />
-          </g>
-        </svg>
-        <span class="flex flex-col icon icon-delete-all"> Clear All </span>
-      </button>
-    </div>
+          <button title="Clear All"
+            id="delete-all" class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button">
+            <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M9 1h6v8.5h6V23H3V9.5h6zm2 2v8.5H5V14h14v-2.5h-6V3zm8 13H5v5h9v-3h2v3h3z" />
+              </svg>
+            </span>
+          </button>
 
-    <!-- Search Field -->
-    <div class="flex w-full lg:w-full md:w-full xl:w-full flex-col items-center justify-center relative text-gray-500 pt-4">
-      <div class="relative">
-        <input type="text" id="search-q"
-          class="p-1.5 pl-9 rounded border border-gray-200 bg-gray-200 focus:bg-white focus:outline-none focus:ring-2 focus:ring-sky-600 focus:border-transparent hover:border-white shadow-lg shadow-sky-600 hover:shadow-sky-400 transition-all"
-          placeholder="search" />
-        <svg class="w-4 h-4 absolute left-2.5 top-3 fill-transparent stroke-black hover:stroke-sky-600"
-          xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3"
-            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-        </svg>
+          <button title="Information"
+            id="info-btn" class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button">
+            <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                <path fill="currentColor"
+                  d="M11 17h2v-6h-2zm1-8q.425 0 .713-.288T13 8q0-.425-.288-.712T12 7q-.425 0-.712.288T11 8q0 .425.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12q0-3.35-2.325-5.675T12 4Q8.65 4 6.325 6.325T4 12q0 3.35 2.325 5.675T12 20m0-8" />
+              </svg>
+            </span>
+          </button>
+
+          <button title="Minimize Window"
+            id="minimize-btn" class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-white transition-all hover:bg-white/10 active:bg-white/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+            type="button">
+            <span class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 16 16">
+                <path fill="currentColor"
+                  d="M13.78 3.28a.75.75 0 0 0-1.06-1.06L10.5 4.44V3.25a.75.75 0 0 0-1.5 0v2.9c0 .017 0 .035.002.052a.748.748 0 0 0 .796.796A.86.86 0 0 0 9.85 7h2.9a.75.75 0 0 0 0-1.5h-1.19zM6.25 13.5a.75.75 0 0 1-.75-.75v-1.19l-2.22 2.22a.75.75 0 0 1-1.06-1.06l2.22-2.22H3.25a.75.75 0 0 1 0-1.5h2.9a.86.86 0 0 1 .052.002a.748.748 0 0 1 .796.796A.86.86 0 0 1 7 9.85v2.9a.75.75 0 0 1-.75.75" />
+              </svg>
+            </span>
+          </button>
+        </div>
+
+        <!-- Search Field -->
+        <div class="relative flex w-full gap-2 md:w-max">
+          <div class="relative h-10 w-full min-w-[288px]">
+            <input type="search" id="search-q"
+              class="placeholder-shown:border-blue-gray-200 placeholder-shown:border-t-blue-gray-200 disabled:bg-blue-gray-50 peer h-full w-full rounded-[7px] border border-white bg-transparent px-3 py-2.5 font-sans text-sm font-normal !text-white outline outline-0 transition-all placeholder-shown:border focus:border-2 focus:border-white focus:border-t-transparent focus:outline-0 disabled:border-0"
+              placeholder="" />
+            <label
+              class="before:content[' '] after:content[' '] peer-placeholder-shown:text-blue-gray-500 peer-disabled:peer-placeholder-shown:text-blue-gray-500 pointer-events-none absolute -top-1.5 left-0 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight !text-white transition-all before:pointer-events-none before:mr-1 before:mt-[6.5px] before:box-border before:block before:h-1.5 before:w-2.5 before:rounded-tl-md before:border-l before:border-t before:border-white before:transition-all after:pointer-events-none after:ml-1 after:mt-[6.5px] after:box-border after:block after:h-1.5 after:w-2.5 after:flex-grow after:rounded-tr-md after:border-r after:border-t after:border-white after:transition-all peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[3.75] peer-placeholder-shown:before:border-transparent peer-placeholder-shown:after:border-transparent peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-white peer-focus:before:border-l-2 peer-focus:before:border-t-2 peer-focus:before:!border-white peer-focus:after:border-r-2 peer-focus:after:border-t-2 peer-focus:after:!border-white peer-disabled:text-transparent peer-disabled:before:border-transparent peer-disabled:after:border-transparent">
+              Type here... </label>
+          </div>
+        </div>
       </div>
-    </div>
+    </nav>
 
     <div class="relative mx-auto mt-5 flex w-72 lg:w-full md:w-full xl:w-full max-w-lg flex-col">
       <div class="relative space-y-3" id="clips">

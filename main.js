@@ -26,15 +26,17 @@ function createWindow() {
 
   const mainWindow = new BrowserWindow({
     title: "UR Board",
-    frame: true,
+    frame: false,
+    x: screen.getPrimaryDisplay().bounds.width,
+    y: 100,
     minWidth: 330,
     width: 330,
-    height: screen.getPrimaryDisplay().workAreaSize.height - 150,
+    height: screen.getPrimaryDisplay().workAreaSize.height - 100,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
       contextIsolation: false,
-      enableRemoteModule:true,
+      enableRemoteModule: true,
     },
     show: true,
     autoHideMenuBar: true,
@@ -45,9 +47,10 @@ function createWindow() {
     alwaysOnTop: true,
     darkTheme: true,
     images: true,
+    skipTaskbar: true,
   })
 
-  mainWindow.loadFile("index.html", {query: {"path": jsonFile}})
+  mainWindow.loadFile("index.html", { query: { "path": jsonFile } })
 
   globalShortcut.register("CommandOrControl+Shift+X", () => {
     if (!appShow) {
@@ -59,11 +62,8 @@ function createWindow() {
     }
   })
 
-  ipcMain.on("hide-window", event => {
-    if (appShow) {
-      mainWindow.hide()
-      appShow = false
-    }
+  ipcMain.on("hide-window", () => {
+    mainWindow.hide()
   })
 
   // Override the close action to hide window.
@@ -231,7 +231,7 @@ function createWindow() {
 app.whenReady().then(() => {
   createWindow()
 
-  app.on('activate', function () {
+  app.on('activate', () => {
     // On macOS it's common to re-create a window in the app when the
     // dock icon is clicked and there are no other windows open.
     if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -241,7 +241,7 @@ app.whenReady().then(() => {
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
 // explicitly with Cmd + Q.
-app.on('window-all-closed', function () {
+app.on('window-all-closed', () => {
   // if (process.platform !== 'darwin') app.quit()
   if (process.platform === 'darwin') app.dock.hide()
   app.quit()

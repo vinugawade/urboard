@@ -1,0 +1,8 @@
+::-webkit-scrollbar {
+  display: none;
+}
+
+.draggable {
+  -webkit-user-select: none;
+  -webkit-app-region: drag;
+}
