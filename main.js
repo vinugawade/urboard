@@ -223,7 +223,7 @@ function createWindow() {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 
-  tray = new Tray(path.join(__dirname, "assets/logo/logo(19x19).png"))
+  tray = new Tray(path.join(__dirname, "assets/logo/logo(16x20).png"))
   tray.setToolTip("UR Clipboard")
   tray.setContextMenu(menu)
 
