@@ -147,7 +147,7 @@ function createWindow() {
           label: "Clipboard",
           submenu: [{
             label: "Open UR Board",
-            accelerator: process.platform === 'darwin' ? 'Cmd+Shift+X' : 'Ctrl+Shift+X',
+            accelerator: 'Alt+Shift+X',
             click: () => {
               if (!appShow) {
                 appShow = true
@@ -223,13 +223,13 @@ function createWindow() {
   const menu = Menu.buildFromTemplate(template)
   Menu.setApplicationMenu(menu)
 
-  tray = new Tray(path.join(__dirname, "assets/logo/logo.png"))
+  tray = new Tray(path.join(__dirname, "assets/logo/logo(19x19).png"))
   tray.setToolTip("UR Clipboard")
   tray.setContextMenu(menu)
 
   // Open the DevTools.
   // NOTICE: Only For Development Mode.
-  mainWindow.webContents.openDevTools()
+  // mainWindow.webContents.openDevTools()
 }
 
 // This method will be called when Electron has finished

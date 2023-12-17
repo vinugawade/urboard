@@ -13,25 +13,17 @@ const $ = require("jquery")
 
 function createItems(clipId, text) {
   return (
-    `<div class="item flex cursor-pointer space-x-8 rounded-lg border-1 border-transparent bg-sky-200 p-2 transition-all hover:scale-105 hover:border-white shadow-lg shadow-sky-600 hover:shadow-sky-400" clipId="` +
-    clipId +
-    `"><div class="flex w-[50px] flex-1">
+    `<div class="item flex cursor-pointer space-x-8 rounded-lg border-1 border-transparent bg-sky-200 p-2 transition-all hover:scale-105 hover:border-white shadow-lg shadow-sky-600 hover:shadow-sky-400" clipId="${clipId}"><div class="flex w-[50px] flex-1">
     <xmp class="text-xs select-all m-0 w-full overflow-hidden text-ellipsis whitespace-nowrap rounded font-sans font-normal tracking-normal text-black transition-all hover:text-gray-800">
-    ` +
-    text +
-    `
+    ${text}
     </xmp>
     <div class="flex w-28 items-center justify-between ps-10">
-      <button class="copy-to-clipboard" clipId="` +
-    clipId +
-    `">
+      <button class="copy-to-clipboard" clipId="${clipId}">
       <svg class="h-4 w-4 overflow-hidden transition-all hover:scale-125" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 256 256">
         <path class="h-4 w-4 transition-all fill-sky-500 hover:fill-sky-600" d="M216 32H88a8 8 0 0 0-8 8v40H40a8 8 0 0 0-8 8v128a8 8 0 0 0 8 8h128a8 8 0 0 0 8-8v-40h40a8 8 0 0 0 8-8V40a8 8 0 0 0-8-8Zm-8 128h-32V88a8 8 0 0 0-8-8H96V48h112Z"></path>
       </svg>
       </button>
-      <button class="delete" clipId="` +
-    clipId +
-    `">
+      <button class="delete" clipId="${clipId}">
         <svg class="h-4 w-4 overflow-hidden transition-all hover:scale-125" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 36 36">
         <path fill="red" d="M27.14 34H8.86A2.93 2.93 0 0 1 6 31V11.23h2V31a.93.93 0 0 0 .86 1h18.28a.93.93 0 0 0 .86-1V11.23h2V31a2.93 2.93 0 0 1-2.86 3Z" class="clr-i-outline clr-i-outline-path-1"></path>
         <path fill="red" d="M30.78 9H5a1 1 0 0 1 0-2h25.78a1 1 0 0 1 0 2Z" class="clr-i-outline clr-i-outline-path-2"></path>
@@ -44,7 +36,7 @@ function createItems(clipId, text) {
       </div>
     </div>
   </div>`
-  )
+  );
 }
 
 ipcRenderer.on("update-clipboard", async () => {
