@@ -162,12 +162,15 @@ function createWindow() {
     // { role: 'fileMenu' },
     // { role: 'editMenu' },
     // { role: 'viewMenu' },
+
+    // Open the DevTools.
+    // NOTICE: Only For Development Mode.
+    // { role: 'toggleDevTools' },
     {
       label: 'View',
       submenu: [
         { role: 'reload' },
         { role: 'forceReload' },
-        { role: 'toggleDevTools' },
         { role: 'togglefullscreen' }
       ]
     },
