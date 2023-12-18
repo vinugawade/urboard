@@ -52,7 +52,7 @@ function createWindow() {
 
   mainWindow.loadFile("index.html", { query: { "path": jsonFile } })
 
-  globalShortcut.register("Super+Shift+X", () => {
+  globalShortcut.register("Alt+Shift+X", () => {
     appShow = !appShow
     appShow ? mainWindow.show() : mainWindow.hide()
   })
@@ -147,7 +147,7 @@ function createWindow() {
           label: "Clipboard",
           submenu: [{
             label: "Open UR Board",
-            accelerator: 'Super+Shift+X',
+            accelerator: 'Alt+Shift+X',
             click: () => {
               if (!appShow) {
                 appShow = true
