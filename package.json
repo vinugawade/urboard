@@ -34,14 +34,24 @@
     "appId": "com.vinugawade.urboard",
     "linux": {
       "target": [
-        "snap",
-        "deb"
+        "snap"
       ],
+      "vendor" : "Vinay Gawade",
+      "maintainer" : "Vinay Gawade",
+      "desktop": "UR Board",
+      "description": "The Clipboard Manager",
       "files": [
         "**/*",
-        "build/icon.*"
+        {
+          "from": "node_modules",
+          "to": "node_modules"
+        },
+        {
+          "from": "assets",
+          "to": "assets"
+        }
       ],
-      "icon": "build/",
+      "icon": "assets/logo/logo.svg",
       "category": "Utility"
     },
     "mac": {
